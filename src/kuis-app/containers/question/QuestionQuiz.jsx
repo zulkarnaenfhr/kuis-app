@@ -18,7 +18,7 @@ class QuestionQuiz extends Component {
 
     handleAnswer = (event) => {
         if (this.state.number === this.props.dataKuis.length - 1) {
-            this.props.onQuizFinish("finish");
+            this.props.onQuizFinish("finish", this.state.rightAnswer, this.state.number);
         } else {
             if (this.state.dataKuis[this.state.number].correctAnswer === event.target.value) {
                 this.setState({
@@ -37,14 +37,16 @@ class QuestionQuiz extends Component {
 
     componentDidMount() {
         this.myInterval = setInterval(() => {
-            const { seconds, minutes } = this.state;
+            const { seconds } = this.state;
             if (seconds > 0) {
                 this.setState(({ seconds }) => ({
                     seconds: seconds - 0.5,
                 }));
-            }
-            if (seconds === 0) {
-                if (minutes === 0) {
+            } else {
+                if (seconds === 0 && this.state.number === 9) {
+                    this.props.onQuizFinish("finish", this.state.rightAnswer, this.state.number);
+                }
+                if (seconds === 0) {
                     clearInterval(this.myInterval);
                 } else {
                     this.setState({
@@ -81,10 +83,16 @@ class QuestionQuiz extends Component {
                 >
                     <div id={styles["QuestionPage"]}>
                         <div>
-                            <h1>{this.state.seconds}</h1>
-                            <h1 className={styles["QuestionPage-CorrectAnswer-Indicator"]}>
-                                Correct Answer {this.state.rightAnswer}/{this.state.number + 1}{" "}
-                            </h1>
+                            <Row>
+                                <Col>
+                                    <h1 className={styles["QuestionPage-TimeRemaining"]}>Time Remaining {this.state.seconds}</h1>
+                                </Col>
+                                <Col>
+                                    <h1 className={styles["QuestionPage-CorrectAnswer-Indicator"]}>
+                                        Correct Answer {this.state.rightAnswer}/{this.state.number + 1}{" "}
+                                    </h1>
+                                </Col>
+                            </Row>
                             <div className={styles["QuestionPage-Content-Container"]}>
                                 <h1 className={styles["QuestionPage-Title"]}>{this.state.dataKuis[this.state.number].question}</h1>
                                 <Row>

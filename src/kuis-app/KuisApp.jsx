@@ -15,7 +15,10 @@ class KuisApp extends Component {
         this.state = {
             question: [],
             statusPage: "start",
+            // statusPage: "start",
             category: [18, 19, 11, 12, 27],
+            rightAnswer: "",
+            number: "",
         };
         this.handleStartClick = this.handleStartClick.bind(this);
     }
@@ -28,12 +31,7 @@ class KuisApp extends Component {
 
             await axios.get(`https://opentdb.com/api.php?amount=${dataApiTemp.numberOfQuestion}&category=${dataApiTemp.category}&difficulty=${dataApiTemp.difficulty}&type=multiple`).then((resp) => {
                 resp.data.results.map(async (item) => {
-                    await item.question.replaceAll(`&#039;`, `'`);
-                    await item.question.replaceAll("&quot;", `"`);
-                    await item.question.replaceAll("#lsquo;", `'`);
-                    await item.question.replaceAll("#rsquo;", `'`);
-                    await item.question.replaceAll("#uuml;", `=`);
-                    await item.question.replaceAll("#&Eacute;", `é`);
+                    await item.question.replace(/<\/?\w(?:[^"'>]|"[^"]*"|'[^']*')*>/gim, "");
                     // console.log(questionTemp);
                     this.state.question.push({
                         question: item.question.replaceAll("&quot;", `"`),
@@ -59,9 +57,11 @@ class KuisApp extends Component {
         }
     };
 
-    handleQuizFinish = (status) => {
+    handleQuizFinish = (status, rightAnswer, number) => {
         this.setState({
             statusPage: status,
+            number: number,
+            rightAnswer: rightAnswer,
         });
     };
 
@@ -71,9 +71,9 @@ class KuisApp extends Component {
                 {this.state.statusPage === "start" ? (
                     <StartQuiz onStartClick={(status, dataApi) => this.handleStartClick(status, dataApi)} />
                 ) : this.state.statusPage === "quiz" ? (
-                    <QuestionQuiz dataKuis={this.state.question} onQuizFinish={(status) => this.handleQuizFinish(status)} />
+                    <QuestionQuiz dataKuis={this.state.question} onQuizFinish={(status, rightAnswer, number) => this.handleQuizFinish(status, rightAnswer, number)} />
                 ) : this.state.statusPage === "finish" ? (
-                    <FinishQuiz />
+                    <FinishQuiz rightAnswer={this.state.rightAnswer} number={this.state.number} />
                 ) : (
                     ""
                 )}{" "}
