@@ -56,8 +56,13 @@ export default class StartQuiz extends Component {
                 >
                     <div key="loading-page" id={styles["StartQuiz"]}>
                         <Row>
-                            <Col md={5} className={styles["Column-Left"]}>
-                                <div>
+                            <Col lg={5} className={styles["Column-Left"]}>
+                                <div
+                                    style={{
+                                        width: "100%",
+                                        maxWidth: "400px",
+                                    }}
+                                >
                                     <h1 data-aos="fade-right">Trivia Quiz</h1>
                                     <p data-aos="fade-right" data-aos-delay="100">
                                         Select Option
@@ -110,7 +115,7 @@ export default class StartQuiz extends Component {
                                     </form>
                                 </div>
                             </Col>
-                            <Col md={7} className={styles["Column-Right"]}>
+                            <Col lg={7} className={styles["Column-Right"]}>
                                 <img className={styles["Column-Right-Vector"]} src={require("../../src/Start-Vector.png")} alt="" />
                             </Col>
                         </Row>
