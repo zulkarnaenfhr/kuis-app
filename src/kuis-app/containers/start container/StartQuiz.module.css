@@ -1,0 +1,31 @@
+#StartQuiz {
+    width: 100vw;
+    height: 100vh;
+    background-color: #54416e;
+    font-family: "poppins", sans-serif;
+}
+
+.Column-Right {
+    height: 100vh;
+    display: flex;
+    align-items: end;
+    border: 1px solid red;
+}
+
+.Column-Right-Vector {
+    width: 100%;
+}
+
+.Column-Left {
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.Column-Left-Form {
+    width: 400px;
+    border: 1px solid red;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
