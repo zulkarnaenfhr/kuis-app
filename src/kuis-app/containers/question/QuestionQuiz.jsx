@@ -27,6 +27,7 @@ class QuestionQuiz extends Component {
                 >
                     <div>
                         <h1>masuk question kuis</h1>
+                        <button onClick={() => console.log(this.props.dataKuis)}>data</button>
                     </div>
                 </motion.div>
             </AnimatePresence>
