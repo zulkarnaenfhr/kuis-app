@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import styles from "./QuestionQuiz.module.css";
 
 class QuestionQuiz extends Component {
     render() {
