@@ -48,17 +48,24 @@
 }
 
 .Columnt-Left-Form-Submit-Row {
-    margin-top: 10px;
+    margin-top: 20px;
     width: 100%;
     display: flex;
     justify-content: right;
 }
 
 .Columnt-Left-Form-Submit {
-    height: 30px;
+    height: 35px;
     width: 99px;
     background-color: #495c83;
     color: #efefef;
     font-weight: 500;
     border-radius: 5px;
+    transition: all 0.4 ease-in-out !important;
+}
+
+.Columnt-Left-Form-Submit:hover {
+    background-color: transparent;
+    border: 1px solid #495c83;
+    color: #495c83;
 }

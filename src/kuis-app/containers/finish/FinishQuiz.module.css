@@ -4,7 +4,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #fcdad0;
+    background-color: #f7eddb;
     font-family: "poppins", sans-serif;
 }
 
@@ -29,4 +29,36 @@
 
 .Finish-Vector {
     width: 95%;
+}
+
+.FinishQuiz-Button-Row {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.FinishQuiz-Button {
+    width: 300px;
+    height: 40px;
+    border-radius: 10px;
+    margin-top: 20px;
+    transition: all 0.4s ease-in-out;
+    background-color: #ccd6a6;
+    border: 1px solid #ccd6a6;
+}
+
+.FinishQuiz-Button:hover {
+    background-color: transparent;
+    border: 1px solid black;
+}
+
+.FinishQuiz-Button > span {
+    margin-left: 5px;
+    position: relative;
+    top: 1.5px;
+    transition: all 0.4s ease-in-out;
+}
+
+.FinishQuiz-Button:hover > span {
+    margin-left: 20px;
 }

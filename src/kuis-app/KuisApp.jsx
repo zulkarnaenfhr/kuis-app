@@ -4,6 +4,8 @@ import "./global.css";
 import StartQuiz from "./containers/start/StartQuiz";
 import QuestionQuiz from "./containers/question/QuestionQuiz";
 import FinishQuiz from "./containers/finish/FinishQuiz";
+import Aos from "aos";
+import "aos/dist/aos.css";
 const axios = require("axios");
 
 const shuffle = (arr) => arr.sort(() => Math.random() - 0.5);
@@ -31,7 +33,9 @@ class KuisApp extends Component {
 
             await axios.get(`https://opentdb.com/api.php?amount=${dataApiTemp.numberOfQuestion}&category=${dataApiTemp.category}&difficulty=${dataApiTemp.difficulty}&type=multiple`).then((resp) => {
                 resp.data.results.map(async (item) => {
-                    await item.question.replace(/<\/?\w(?:[^"'>]|"[^"]*"|'[^']*')*>/gim, "");
+                    await item.question.replaceAll(/<\/?\w(?:[^"'>]|"[^"]*"|'[^']*')*>/gim, "");
+                    await item.question.replaceAll("&amp;", "&");
+                    await item.question.replaceAll("&#039", "'");
                     // console.log(questionTemp);
                     this.state.question.push({
                         question: item.question.replaceAll("&quot;", `"`),
@@ -65,6 +69,19 @@ class KuisApp extends Component {
         });
     };
 
+    componentDidMount() {
+        Aos.init({
+            duration: 1000,
+        });
+    }
+
+    handlePlayAgain = (status) => {
+        this.setState({
+            question: [],
+            statusPage: status,
+        });
+    };
+
     render() {
         return (
             <div>
@@ -73,7 +90,7 @@ class KuisApp extends Component {
                 ) : this.state.statusPage === "quiz" ? (
                     <QuestionQuiz dataKuis={this.state.question} onQuizFinish={(status, rightAnswer, number) => this.handleQuizFinish(status, rightAnswer, number)} />
                 ) : this.state.statusPage === "finish" ? (
-                    <FinishQuiz rightAnswer={this.state.rightAnswer} number={this.state.number} />
+                    <FinishQuiz rightAnswer={this.state.rightAnswer} number={this.state.number} onPlayAgain={(status) => this.handlePlayAgain(status)} />
                 ) : (
                     ""
                 )}{" "}

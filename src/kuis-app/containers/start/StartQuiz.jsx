@@ -58,14 +58,18 @@ export default class StartQuiz extends Component {
                         <Row>
                             <Col md={5} className={styles["Column-Left"]}>
                                 <div>
-                                    <h1>Trivia Quiz</h1>
-                                    <p>Select Option</p>
-                                    <form action="" className={styles["Column-Left-Form"]}>
-                                        <label className={styles["Column-Left-Form-Label"]} htmlFor="">
+                                    <h1 data-aos="fade-right">Trivia Quiz</h1>
+                                    <p data-aos="fade-right" data-aos-delay="100">
+                                        Select Option
+                                    </p>
+                                    <form action="" className={styles["Column-Left-Form"]} data-aos="fade-right" data-aos-delay="200">
+                                        <label data-aos="fade-right" data-aos-delay="300" className={styles["Column-Left-Form-Label"]} htmlFor="">
                                             Number of Question
                                         </label>
                                         <br />
                                         <input
+                                            data-aos="fade-right"
+                                            data-aos-delay="400"
                                             onChange={(e) => this.handleCategoryChange(e.target.name, e.target.value)}
                                             className={styles["Columnt-Left-Form-Input"]}
                                             type="number"
@@ -75,11 +79,11 @@ export default class StartQuiz extends Component {
                                             max={20}
                                         />
                                         <br />
-                                        <label className={styles["Column-Left-Form-Label"]} htmlFor="">
+                                        <label data-aos="fade-right" data-aos-delay="500" className={styles["Column-Left-Form-Label"]} htmlFor="">
                                             Select Category
                                         </label>
                                         <br />
-                                        <select onChange={(e) => this.handleCategoryChange(e.target.name, e.target.value)} className={styles["Columnt-Left-Form-Input"]} name="category" id="">
+                                        <select data-aos="fade-right" data-aos-delay="600" onChange={(e) => this.handleCategoryChange(e.target.name, e.target.value)} className={styles["Columnt-Left-Form-Input"]} name="category" id="">
                                             <option value="">Any Type</option>
                                             <option value="18">Science: Computers</option>
                                             <option value="19">Science: Mathematics</option>
@@ -88,17 +92,17 @@ export default class StartQuiz extends Component {
                                             <option value="12">Entertainment: Music</option>
                                         </select>
                                         <br />
-                                        <label className={styles["Column-Left-Form-Label"]} htmlFor="">
+                                        <label data-aos="fade-right" data-aos-delay="700" className={styles["Column-Left-Form-Label"]} htmlFor="">
                                             Select Difficulty
                                         </label>
                                         <br />
-                                        <select onChange={(e) => this.handleCategoryChange(e.target.name, e.target.value)} className={styles["Columnt-Left-Form-Input"]} name="difficulty" id="">
+                                        <select data-aos="fade-right" data-aos-delay="800" onChange={(e) => this.handleCategoryChange(e.target.name, e.target.value)} className={styles["Columnt-Left-Form-Input"]} name="difficulty" id="">
                                             <option value="">Any Type</option>
                                             <option value="easy">Easy</option>
                                             <option value="medium">Medium</option>
                                             <option value="hard">Hard</option>
                                         </select>
-                                        <div className={styles["Columnt-Left-Form-Submit-Row"]}>
+                                        <div data-aos="fade-right" data-aos-delay="900" className={styles["Columnt-Left-Form-Submit-Row"]}>
                                             <button onClick={this.handleFormSubmit} className={styles["Columnt-Left-Form-Submit"]} type="submit">
                                                 Mulai
                                             </button>
@@ -107,7 +111,7 @@ export default class StartQuiz extends Component {
                                 </div>
                             </Col>
                             <Col md={7} className={styles["Column-Right"]}>
-                                <img className={styles["Column-Right-Vector"]} src={require("../../src/Start-Vector.png")} alt="" />
+                                <img data-aos="fade-up" className={styles["Column-Right-Vector"]} src={require("../../src/Start-Vector.png")} alt="" />
                             </Col>
                         </Row>
                     </div>

@@ -1,6 +1,8 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { Component } from "react";
 import { Row, Col } from "react-bootstrap";
 import styles from "./FinishQuiz.module.css";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 class FinishQuiz extends Component {
     constructor(props) {
@@ -9,6 +11,7 @@ class FinishQuiz extends Component {
         this.state = {
             status: "",
         };
+        this.handlePlayAgain = this.handlePlayAgain.bind(this);
     }
     componentDidMount() {
         let percent = (this.props.rightAnswer / (this.props.number + 1)) * 100;
@@ -26,6 +29,9 @@ class FinishQuiz extends Component {
             });
         }
     }
+    handlePlayAgain = () => {
+        this.props.onPlayAgain("start");
+    };
     render() {
         return (
             <div id={styles["FinishQuiz"]}>
@@ -34,6 +40,14 @@ class FinishQuiz extends Component {
                         <div>
                             <h1 className={styles["FinishQuiz-Text"]}>Quiz Finish</h1>
                             <h1 className={styles["FinishQuiz-Text"]}>{this.state.status}</h1>
+                            <div className={styles["FinishQuiz-Button-Row"]}>
+                                <button onClick={this.handlePlayAgain} className={styles["FinishQuiz-Button"]}>
+                                    Play Again{" "}
+                                    <span>
+                                        <FontAwesomeIcon icon={faArrowRight} />
+                                    </span>
+                                </button>
+                            </div>
                         </div>
                     </Col>
                     <Col className={styles["Column-Container"]}>

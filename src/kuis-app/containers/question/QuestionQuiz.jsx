@@ -18,6 +18,10 @@ class QuestionQuiz extends Component {
 
     handleAnswer = (event) => {
         if (this.state.number === this.props.dataKuis.length - 1) {
+            this.setState({
+                seconds: 10,
+                number: 0,
+            });
             this.props.onQuizFinish("finish", this.state.rightAnswer, this.state.number);
         } else {
             if (this.state.dataKuis[this.state.number].correctAnswer === event.target.value) {
@@ -44,11 +48,13 @@ class QuestionQuiz extends Component {
                 }));
             } else {
                 if (seconds === 0 && this.state.number === 9) {
+                    this.setState({
+                        seconds: 10,
+                        number: 0,
+                    });
                     this.props.onQuizFinish("finish", this.state.rightAnswer, this.state.number);
                 }
                 if (seconds === 0) {
-                    clearInterval(this.myInterval);
-                } else {
                     this.setState({
                         seconds: 10,
                         number: this.state.number + 1,
@@ -97,7 +103,7 @@ class QuestionQuiz extends Component {
                                 <h1 className={styles["QuestionPage-Title"]}>{this.state.dataKuis[this.state.number].question}</h1>
                                 <Row>
                                     {this.state.dataKuis[this.state.number].options.map((jawaban) => (
-                                        <Col key={jawaban} md={6}>
+                                        <Col className={styles["Column-Container"]} key={jawaban} md={6}>
                                             <button onClick={this.handleAnswer} className={styles["AnswerButton"]} value={jawaban}>
                                                 {jawaban}
                                             </button>
