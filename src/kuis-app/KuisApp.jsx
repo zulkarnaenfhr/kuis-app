@@ -1,16 +1,19 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./global.css";
-import StartQuiz from "./containers/start container/StartQuiz";
+import StartQuiz from "./containers/start/StartQuiz";
 import QuestionQuiz from "./containers/question/QuestionQuiz";
+import FinishQuiz from "./containers/finish/FinishQuiz";
 const axios = require("axios");
+
+const shuffle = (arr) => arr.sort(() => Math.random() - 0.5);
 
 class KuisApp extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            question: "",
+            question: [],
             statusPage: "start",
             category: [18, 19, 11, 12, 27],
         };
@@ -24,8 +27,19 @@ class KuisApp extends Component {
             dataApiTemp["category"] = randomCategory;
 
             await axios.get(`https://opentdb.com/api.php?amount=${dataApiTemp.numberOfQuestion}&category=${dataApiTemp.category}&difficulty=${dataApiTemp.difficulty}&type=multiple`).then((resp) => {
-                this.setState({
-                    question: resp.data.results,
+                resp.data.results.map(async (item) => {
+                    await item.question.replaceAll(`&#039;`, `'`);
+                    await item.question.replaceAll("&quot;", `"`);
+                    await item.question.replaceAll("#lsquo;", `'`);
+                    await item.question.replaceAll("#rsquo;", `'`);
+                    await item.question.replaceAll("#uuml;", `=`);
+                    await item.question.replaceAll("#&Eacute;", `é`);
+                    // console.log(questionTemp);
+                    this.state.question.push({
+                        question: item.question.replaceAll("&quot;", `"`),
+                        options: shuffle([...item.incorrect_answers, item.correct_answer]),
+                        correctAnswer: item.correct_answer,
+                    });
                 });
             });
 
@@ -45,9 +59,25 @@ class KuisApp extends Component {
         }
     };
 
+    handleQuizFinish = (status) => {
+        this.setState({
+            statusPage: status,
+        });
+    };
+
     render() {
         return (
-            <div>{this.state.statusPage === "start" ? <StartQuiz onStartClick={(status, dataApi) => this.handleStartClick(status, dataApi)} /> : this.state.statusPage === "quiz" ? <QuestionQuiz dataKuis={this.state.question} /> : ""} </div>
+            <div>
+                {this.state.statusPage === "start" ? (
+                    <StartQuiz onStartClick={(status, dataApi) => this.handleStartClick(status, dataApi)} />
+                ) : this.state.statusPage === "quiz" ? (
+                    <QuestionQuiz dataKuis={this.state.question} onQuizFinish={(status) => this.handleQuizFinish(status)} />
+                ) : this.state.statusPage === "finish" ? (
+                    <FinishQuiz />
+                ) : (
+                    ""
+                )}{" "}
+            </div>
         );
     }
 }
