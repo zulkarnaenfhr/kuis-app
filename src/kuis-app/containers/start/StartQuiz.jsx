@@ -111,7 +111,7 @@ export default class StartQuiz extends Component {
                                 </div>
                             </Col>
                             <Col md={7} className={styles["Column-Right"]}>
-                                <img data-aos="fade-up" className={styles["Column-Right-Vector"]} src={require("../../src/Start-Vector.png")} alt="" />
+                                <img className={styles["Column-Right-Vector"]} src={require("../../src/Start-Vector.png")} alt="" />
                             </Col>
                         </Row>
                     </div>

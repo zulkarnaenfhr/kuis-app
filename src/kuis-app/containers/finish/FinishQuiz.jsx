@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { Row, Col } from "react-bootstrap";
 import styles from "./FinishQuiz.module.css";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { AnimatePresence, motion } from "framer-motion";
 
 class FinishQuiz extends Component {
     constructor(props) {
@@ -34,29 +35,57 @@ class FinishQuiz extends Component {
     };
     render() {
         return (
-            <div id={styles["FinishQuiz"]}>
-                <Row className={styles["FinishQuiz-Content-Container"]}>
-                    <Col className={styles["Column-Container"]}>
-                        <div>
-                            <h1 className={styles["FinishQuiz-Text"]}>Quiz Finish</h1>
-                            <h1 className={styles["FinishQuiz-Text"]}>{this.state.status}</h1>
-                            <div className={styles["FinishQuiz-Button-Row"]}>
-                                <button onClick={this.handlePlayAgain} className={styles["FinishQuiz-Button"]}>
-                                    Play Again{" "}
-                                    <span>
-                                        <FontAwesomeIcon icon={faArrowRight} />
-                                    </span>
-                                </button>
-                            </div>
-                        </div>
-                    </Col>
-                    <Col className={styles["Column-Container"]}>
-                        <div>
-                            <img className={styles["Finish-Vector"]} src={require("../../src/Finish-Vector.png")} alt="" />
-                        </div>
-                    </Col>
-                </Row>
-            </div>
+            <AnimatePresence exitBeforeEnter>
+                <motion.div
+                    initial="pageInitial"
+                    animate="pageAnimate"
+                    variants={{
+                        pageInitial: {
+                            opacity: 0,
+                        },
+                        pageAnimate: {
+                            opacity: 1,
+                            transition: { duration: 1.5 },
+                        },
+                        pageExit: {
+                            opacity: 0,
+                            transition: {
+                                duration: 6,
+                            },
+                        },
+                    }}
+                    exit="pageExit"
+                    key="loading-page"
+                >
+                    <div id={styles["FinishQuiz"]}>
+                        <Row className={styles["FinishQuiz-Content-Container"]}>
+                            <Col className={styles["Column-Container"]}>
+                                <div>
+                                    <h1 data-aos="fade-right" className={styles["FinishQuiz-Text"]}>
+                                        Quiz Finish
+                                    </h1>
+                                    <h1 data-aos="fade-right" data-aos-delay="200" className={styles["FinishQuiz-Text"]}>
+                                        {this.state.status}
+                                    </h1>
+                                    <div className={styles["FinishQuiz-Button-Row"]}>
+                                        <button data-aos="fade-right" data-aos-delay="400" onClick={this.handlePlayAgain} className={styles["FinishQuiz-Button"]}>
+                                            Play Again{" "}
+                                            <span>
+                                                <FontAwesomeIcon icon={faArrowRight} />
+                                            </span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </Col>
+                            <Col className={styles["Column-Container"]}>
+                                <div>
+                                    <img className={styles["Finish-Vector"]} src={require("../../src/Finish-Vector.png")} alt="" />
+                                </div>
+                            </Col>
+                        </Row>
+                    </div>
+                </motion.div>
+            </AnimatePresence>
         );
     }
 }
