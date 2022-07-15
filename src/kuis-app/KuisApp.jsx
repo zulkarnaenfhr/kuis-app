@@ -23,6 +23,8 @@ class KuisApp extends Component {
             number: "",
         };
         this.handleStartClick = this.handleStartClick.bind(this);
+        this.handleQuizFinish = this.handleQuizFinish.bind(this);
+        this.handlePlayAgain = this.handlePlayAgain.bind(this);
     }
 
     handleStartClick = async (status, dataApi) => {
@@ -50,8 +52,16 @@ class KuisApp extends Component {
             });
         } else {
             await axios.get(`https://opentdb.com/api.php?amount=${dataApi.numberOfQuestion}&category=${dataApi.category}&difficulty=${dataApi.difficulty}&type=multiple`).then((resp) => {
-                this.setState({
-                    question: resp.data.results,
+                resp.data.results.map(async (item) => {
+                    await item.question.replaceAll(/<\/?\w(?:[^"'>]|"[^"]*"|'[^']*')*>/gim, "");
+                    await item.question.replaceAll("&amp;", "&");
+                    await item.question.replaceAll("&#039", "'");
+                    // console.log(questionTemp);
+                    this.state.question.push({
+                        question: item.question.replaceAll("&quot;", `"`),
+                        options: shuffle([...item.incorrect_answers, item.correct_answer]),
+                        correctAnswer: item.correct_answer,
+                    });
                 });
             });
 

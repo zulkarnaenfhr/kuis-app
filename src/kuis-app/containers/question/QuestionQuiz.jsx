@@ -101,9 +101,9 @@ class QuestionQuiz extends Component {
                             </Row>
                             <div className={styles["QuestionPage-Content-Container"]}>
                                 <h1 className={styles["QuestionPage-Title"]}>{this.state.dataKuis[this.state.number].question}</h1>
-                                <Row>
+                                <Row className="justify-content-md-center">
                                     {this.state.dataKuis[this.state.number].options.map((jawaban) => (
-                                        <Col className={styles["Column-Container"]} key={jawaban} md={6}>
+                                        <Col className={styles["Column-Container"]} key={jawaban} sm={6}>
                                             <button onClick={this.handleAnswer} className={styles["AnswerButton"]} value={jawaban}>
                                                 {jawaban}
                                             </button>

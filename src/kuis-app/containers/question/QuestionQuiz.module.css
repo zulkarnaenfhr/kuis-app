@@ -1,16 +1,21 @@
 #QuestionPage {
-    height: 100vh;
+    min-height: 100vh;
     width: 100vw;
     display: flex;
     justify-content: center;
     align-items: center;
     font-family: "poppins", sans-serif;
     background: linear-gradient(0deg, rgba(187, 147, 241, 1) 0%, rgba(0, 134, 255, 1) 100%);
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 50px;
+    padding-bottom: 50px;
 }
 
 .QuestionPage-Title {
     text-align: center;
     font-weight: 600;
+    font-size: 35px;
 }
 
 .QuestionPage-Content-Container {
@@ -41,7 +46,8 @@
 }
 
 .AnswerButton {
-    width: 300px;
+    width: 100%;
+    max-width: 300px;
     min-height: 60px;
     padding: 20px;
     height: fit-content;
@@ -50,4 +56,18 @@
     background-color: #d6efed;
     border: 1px solid black;
     font-weight: 500;
+}
+
+.QuestionPage-Content-Container {
+    padding: 30px;
+}
+
+@media screen and (max-width: 992px) {
+    .Column-Container {
+        height: auto;
+        margin-top: 10px;
+    }
+    .QuestionPage-Title {
+        font-size: 25px;
+    }
 }

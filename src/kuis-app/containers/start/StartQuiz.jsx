@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import styles from "./StartQuiz.module.css";
 import { AnimatePresence, motion } from "framer-motion";
-import { Container, Row, Col } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 
 export default class StartQuiz extends Component {
     constructor(props) {

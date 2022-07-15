@@ -26,7 +26,7 @@ class FinishQuiz extends Component {
             });
         } else {
             this.setState({
-                status: `Keep your head up, you got ${percent}% correct answer`,
+                status: `Keep your head up, and just try again. you got ${percent}% correct answer`,
             });
         }
     }
@@ -58,8 +58,8 @@ class FinishQuiz extends Component {
                     key="loading-page"
                 >
                     <div id={styles["FinishQuiz"]}>
-                        <Row className={styles["FinishQuiz-Content-Container"]}>
-                            <Col className={styles["Column-Container"]}>
+                        <Row className="justify-content-md-center">
+                            <Col md={6} className={styles["Column-Left"]}>
                                 <div>
                                     <h1 data-aos="fade-right" className={styles["FinishQuiz-Text"]}>
                                         Quiz Finish
@@ -77,7 +77,7 @@ class FinishQuiz extends Component {
                                     </div>
                                 </div>
                             </Col>
-                            <Col className={styles["Column-Container"]}>
+                            <Col md={6} className={styles["Column-Right"]}>
                                 <div>
                                     <img className={styles["Finish-Vector"]} src={require("../../src/Finish-Vector.png")} alt="" />
                                 </div>

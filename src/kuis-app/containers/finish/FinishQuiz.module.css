@@ -18,9 +18,17 @@
     font-weight: 500;
     padding-left: 30px;
     padding-right: 30px;
+    font-size: 35px;
 }
 
-.Column-Container {
+.Column-Left {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Column-Right {
     height: 100vh;
     display: flex;
     justify-content: center;
@@ -61,4 +69,10 @@
 
 .FinishQuiz-Button:hover > span {
     margin-left: 20px;
+}
+
+@media screen and (max-width: 992px) {
+    .Column-Right {
+        display: none;
+    }
 }

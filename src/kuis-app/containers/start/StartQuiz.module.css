@@ -21,6 +21,8 @@
     align-items: center;
     justify-content: center;
     height: 100vh;
+    padding-left: 30px;
+    padding-right: 30px;
 }
 
 .Column-Left-Form {
