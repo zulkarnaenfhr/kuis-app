@@ -44,7 +44,7 @@ class QuestionQuiz extends Component {
             const { seconds } = this.state;
             if (seconds > 0) {
                 this.setState(({ seconds }) => ({
-                    seconds: seconds - 0.5,
+                    seconds: seconds - 1,
                 }));
             } else {
                 if (seconds === 0 && this.state.number === 9) {
