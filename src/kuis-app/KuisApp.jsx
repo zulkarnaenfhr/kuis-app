@@ -6,6 +6,7 @@ import QuestionQuiz from "./containers/question/QuestionQuiz";
 import FinishQuiz from "./containers/finish/FinishQuiz";
 import Aos from "aos";
 import "aos/dist/aos.css";
+var he = require("he");
 const axios = require("axios");
 
 const shuffle = (arr) => arr.sort(() => Math.random() - 0.5);
@@ -35,14 +36,16 @@ class KuisApp extends Component {
 
             await axios.get(`https://opentdb.com/api.php?amount=${dataApiTemp.numberOfQuestion}&category=${dataApiTemp.category}&difficulty=${dataApiTemp.difficulty}&type=multiple`).then((resp) => {
                 resp.data.results.map(async (item) => {
-                    await item.question.replaceAll(/<\/?\w(?:[^"'>]|"[^"]*"|'[^']*')*>/gim, "");
-                    await item.question.replaceAll("&amp;", "&");
-                    await item.question.replaceAll("&#039", "'");
-                    // console.log(questionTemp);
+                    let questionTemp = he.decode(item.question);
+                    let correctAnswerTemp = he.decode(item.correct_answer);
+                    let tempIncorrectAnswer1 = he.decode(item.incorrect_answers[0]);
+                    let tempIncorrectAnswer2 = he.decode(item.incorrect_answers[1]);
+                    let tempIncorrectAnswer3 = he.decode(item.incorrect_answers[2]);
+                    let tempIncorrectAnswerArray = [tempIncorrectAnswer1, tempIncorrectAnswer2, tempIncorrectAnswer3];
                     this.state.question.push({
-                        question: item.question.replaceAll("&quot;", `"`),
-                        options: shuffle([...item.incorrect_answers, item.correct_answer]),
-                        correctAnswer: item.correct_answer,
+                        question: questionTemp,
+                        options: shuffle([...tempIncorrectAnswerArray, item.correct_answer]),
+                        correctAnswer: correctAnswerTemp,
                     });
                 });
             });
@@ -53,14 +56,16 @@ class KuisApp extends Component {
         } else {
             await axios.get(`https://opentdb.com/api.php?amount=${dataApi.numberOfQuestion}&category=${dataApi.category}&difficulty=${dataApi.difficulty}&type=multiple`).then((resp) => {
                 resp.data.results.map(async (item) => {
-                    await item.question.replaceAll(/<\/?\w(?:[^"'>]|"[^"]*"|'[^']*')*>/gim, "");
-                    await item.question.replaceAll("&amp;", "&");
-                    await item.question.replaceAll("&#039", "'");
-                    // console.log(questionTemp);
+                    let questionTemp = he.decode(item.question);
+                    let correctAnswerTemp = he.decode(item.correct_answer);
+                    let tempIncorrectAnswer1 = he.decode(item.incorrect_answers[0]);
+                    let tempIncorrectAnswer2 = he.decode(item.incorrect_answers[1]);
+                    let tempIncorrectAnswer3 = he.decode(item.incorrect_answers[2]);
+                    let tempIncorrectAnswerArray = [tempIncorrectAnswer1, tempIncorrectAnswer2, tempIncorrectAnswer3];
                     this.state.question.push({
-                        question: item.question.replaceAll("&quot;", `"`),
-                        options: shuffle([...item.incorrect_answers, item.correct_answer]),
-                        correctAnswer: item.correct_answer,
+                        question: questionTemp,
+                        options: shuffle([...tempIncorrectAnswerArray, item.correct_answer]),
+                        correctAnswer: correctAnswerTemp,
                     });
                 });
             });
